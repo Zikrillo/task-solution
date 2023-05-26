@@ -1,197 +1,91 @@
 <template>
     <main>
-        <mAside></mAside>
+        <mAside @refreshPage="refreshPage" :burgerStatus="burgerStatus" @changeBurgerStatus="changeBurgerStatus"></mAside>
         <div class="container">
-            <div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
-            </div>
-            <div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
-            </div> <div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
-            </div> <div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
-            </div>
-            <div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
-            </div>
-            <div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
-            </div><div class="container__element">
-                <div class="group">
-                    <div class="containter__element-heading">
-                        Aboba
-                    </div>
-                    <div class="container__element-more">
-                        <i class="fi fi-rr-menu-dots"></i>
-                    </div>
-                </div>
-                <div class="containter__element-address">
-                    <i class="fi fi-rr-marker"></i>
-                    <div class="address">
-                        Farghona
-                    </div>
-                </div>
-                <div class="container__element-type">
-                    <i class="fi fi-rr-chart-simple-horizontal"></i>
-                    <div>wood</div>
-                </div>
-                <div class="container__element-price">
-                    <div>
-                        2000 UZS
-                    </div>
-                </div>
+            <ListElement v-for="{ id, name_uz, address, product_type_id, cost } in searchFilter" 
+                :key="id" 
+                :name_uz="name_uz" 
+                :address="address" 
+                :price="cost" :type="product_type_id" 
+                :id="id" 
+                @refreshPage="refreshPage"
+            />
+            <div v-if="list.length === 0">
+                <img src="../assets/loader.svg" alt="" class="image-preloader">
             </div>
         </div>
     </main>
 </template>
 <script>
-document.oncontextmenu = cmenu; function cmenu() { return false; }
 import mAside from './maside.vue';
+import ListElement from './listElement.vue';
+import ProjectServices from "../../services"
 export default {
     name: "mBody",
-    components: {mAside}
+    components: { mAside, ListElement },
+    mounted() {
+        const services = new ProjectServices();
+        services.getList().then((e) => {
+            services.getTypes().then(arrayOfTypes => {
+
+                const filtered = e.map(current => {
+                    current.product_type_id = arrayOfTypes.find((elem) => elem.id === current.product_type_id)?.name_uz;
+                    return current;
+                });
+                this.list = filtered;
+                console.log(filtered);
+            });
+        });
+    },
+    data() {
+        return {
+            list: [],
+        }
+    },
+    props: ["searchStatus", "burgerStatus"],
+    methods: {
+        sayHi(argument) {
+            console.log(argument);
+        },
+        refreshPage() {
+            const services = new ProjectServices();
+            services.getList().then((e) => {
+                services.getTypes().then(arrayOfTypes => {
+                    const filtered = e.map(current => {
+                        current.product_type_id = arrayOfTypes.find((elem) => elem.id === current.product_type_id)?.name_uz;
+                        return current;
+                    });
+                    this.list = filtered;
+                });
+            });
+        },
+        changeBurgerStatus(){
+            this.$emit("changeBurgerStatus");
+        }
+    },
+    computed: {
+        searchFilter() {
+            return this.list.filter(elem => {
+                return elem.name_uz.toLowerCase().includes(this.searchStatus.toLowerCase());
+            });
+        }
+    }
 }
 </script>
 <style>
+
 main {
     padding: 20px 40px;
     display: grid;
     grid-template-columns: 400px 1fr;
     grid-column-gap: 20px;
     margin-top: 100px;
+}
+
+.image-preloader {
+    position: absolute;
+    top: calc(50vh - 25px);
+    left: calc(50vw - 25px);
 }
 
 .container {
@@ -211,9 +105,11 @@ main {
     border-radius: 6px;
     margin-bottom: 10px;
 }
+
 .container__element:hover {
     cursor: pointer;
-    border-color: rgba(29, 33, 39, 0.795);
+    background-color: rgb(248, 248, 248);
+    /* color: white; */
 }
 
 .containter__element-heading {
@@ -248,10 +144,28 @@ main {
     justify-self: end;
     padding: 10px;
 }
+
 .container__element-type {
     display: flex;
 }
-.container__element-type i{
+
+.container__element-type i {
     margin-right: 10px;
+}
+@media (max-width:1700px) {
+    main{
+        display: block;
+    }
+    .container__element{
+        width: 100%;
+    }
+    .container{
+        width: auto;
+    }
+    @media (max-width:442px) {
+        main{
+            margin-bottom: 30px;
+        }
+    }
 }
 </style>
